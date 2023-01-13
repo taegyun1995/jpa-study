@@ -6,17 +6,18 @@ spring:
     password: 419914
 
   jpa:
+    open-in-view: true
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         format_sql: true
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
 logging.level:
   org.hibernate:
     SQL: debug
     type: trace
-
 
 server:
   servlet:
