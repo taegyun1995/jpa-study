@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jpa1
+    username: root
+    password: 419914
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+logging.level:
+  org.hibernate:
+    SQL: debug
+    type: trace
+
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: false
