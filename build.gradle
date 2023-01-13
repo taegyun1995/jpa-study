@@ -24,12 +24,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
-	testImplementation 'junit:junit:4.13.1'
+	implementation 'junit:junit:4.12'
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'junit:junit:4.13.1'
 }
 
 tasks.named('test') {

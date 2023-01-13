@@ -8,7 +8,6 @@ public class JpashopApplicationTests {
 
     @Test
     void contextLoads() {
-
     }
 
 }
