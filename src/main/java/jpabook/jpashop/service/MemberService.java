@@ -10,34 +10,17 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
     //회원가입
+    @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();
-    }
-
-    public void update(Long id, String name) {
-        Member member = memberRepository.findOne(id);
-        member.setName(name);
-    }
-
-    //회원전체조회
-    @Transactional(readOnly = true)
-    public List<Member> findMembers() {
-        return memberRepository.findAll();
-    }
-
-
-    //회원 개별조회
-    @Transactional(readOnly = true)
-    public Member findMember(Long id) {
-        return memberRepository.findOne(id);
     }
 
     private void validateDuplicateMember(Member member) {
@@ -45,6 +28,22 @@ public class MemberService {
         if(!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+    }
+
+    //회원전체조회
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
+    }
+
+    //회원 개별조회
+    public Member findOne(Long id) {
+        return memberRepository.findOne(id);
+    }
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
     }
 
 }
