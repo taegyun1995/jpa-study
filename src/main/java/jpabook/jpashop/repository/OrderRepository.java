@@ -5,7 +5,6 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -86,7 +85,7 @@ public class OrderRepository {
         //회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             Predicate name =
-                    cb.like(m.<String>get("name"), "%" +
+                    cb.like(m.get("name"), "%" +
                             orderSearch.getMemberName() + "%");
             criteria.add(name);
         }
@@ -99,9 +98,9 @@ public class OrderRepository {
 
     public List<Order> findAllWithMemberDelivery() {
         return em.createQuery(
-                "select o from Order o " +
-                        "join fetch o.member m " +
-                        "join fetch o.delivery d", Order.class)
+                        "select o from Order o " +
+                                "join fetch o.member m " +
+                                "join fetch o.delivery d", Order.class)
                 .getResultList();
     }
 
@@ -117,9 +116,9 @@ public class OrderRepository {
 
     public List<Order> findAllWithMemberDelivery(int offset, int limit) {
         return em.createQuery(
-                    "select o from Order o " +
-                            "join fetch o.member m " +
-                            "join fetch o.delivery d", Order.class)
+                        "select o from Order o " +
+                                "join fetch o.member m " +
+                                "join fetch o.delivery d", Order.class)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();

@@ -74,12 +74,12 @@ public class OrderApiController {
 
     @Getter
     static class OrderDto {
-        private Long orderId;
-        private String name;
-        private LocalDateTime orderDate;
-        private OrderStatus orderStatus;
-        private Address address;
-        private List<OrderItemDto> orderItems;
+        private final Long orderId;
+        private final String name;
+        private final LocalDateTime orderDate;
+        private final OrderStatus orderStatus;
+        private final Address address;
+        private final List<OrderItemDto> orderItems;
 
         public OrderDto(Order order) {
             orderId = order.getId();
@@ -95,9 +95,9 @@ public class OrderApiController {
 
     @Getter
     static class OrderItemDto {
-        private String itemName;
-        private int orderPrice;
-        private int count;
+        private final String itemName;
+        private final int orderPrice;
+        private final int count;
 
         public OrderItemDto(OrderItem orderItem) {
             itemName = orderItem.getItem().getName();
