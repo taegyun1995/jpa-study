@@ -10,17 +10,13 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
+        show_sql: true
         format_sql: true
         default_batch_fetch_size: 100
-#    dialect: org.hibernate.dialect.MySQL8InnoDBDialect
-
+    open-in-view: false
 logging:
-  level:
-    org.hibernate.SQL: debug
-#    org.hibernate.type: trace
+  level: debug
 
-server:
-  servlet:
-    session:
-      cookie:
-        http-only: false
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
