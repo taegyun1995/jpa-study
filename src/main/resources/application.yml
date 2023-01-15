@@ -12,11 +12,12 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
-      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+#    dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
-logging.level:
-  org.hibernate.SQL: debug
-  org.hibernate.type: trace
+logging:
+  level:
+    org.hibernate.SQL: debug
+#    org.hibernate.type: trace
 
 server:
   servlet:
