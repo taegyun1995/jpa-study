@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class OrderQueryRepository {
             o.setOrderItems(orderItems);
         });
 
-        return  result;
+        return result;
     }
 
     public List<OrderQueryDto> findAllByDto_optimization() {
@@ -55,6 +54,7 @@ public class OrderQueryRepository {
                 .collect(Collectors.toList());
         return orderIds;
     }
+
     private List<OrderItemQueryDto> findOrderItems(Long orderId) {
         return em.createQuery(
                         "select new jpabook.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)" +

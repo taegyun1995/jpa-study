@@ -36,7 +36,9 @@ public class MemberService {
     }
 
     //회원 개별조회
-    public Member findOne(Long id) { return memberRepository.findById(id).get(); }
+    public Member findOne(Long id) {
+        return memberRepository.findById(id).get();
+    }
 
     @Transactional
     public void update(Long id, String name) {

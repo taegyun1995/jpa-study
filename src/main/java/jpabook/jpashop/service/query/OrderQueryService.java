@@ -15,16 +15,16 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class OrderQueryService {
 
-      private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-      public List<OrderDto> ordersV3() {
-            List<Order> orders = orderRepository.findAllWithItem();
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
 
-            List<OrderDto> result = orders.stream()
-                    .map(o -> new OrderDto(o))
-                    .collect(toList());
+        List<OrderDto> result = orders.stream()
+                .map(o -> new OrderDto(o))
+                .collect(toList());
 
-            return result;
-      }
+        return result;
+    }
 
 }
