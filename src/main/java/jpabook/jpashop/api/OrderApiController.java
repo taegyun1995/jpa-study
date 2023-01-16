@@ -1,26 +1,21 @@
 package jpabook.jpashop.api;
 
-import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
-import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.repository.order.query.OrderFlatDto;
 import jpabook.jpashop.repository.order.query.OrderItemQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryRepository;
-import lombok.Data;
-import lombok.Getter;
+import jpabook.jpashop.service.query.OrderDto;
+import jpabook.jpashop.service.query.OrderQueryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -38,10 +33,12 @@ public class OrderApiController {
             order.getMember().getName();
             order.getDelivery().getAddress();
             List<OrderItem> orderItems = order.getOrderItems();
+
 //            for (OrderItem orderItem : orderItems) {
 //                orderItem.getItem().getName();
 //            }
             orderItems.stream().forEach(o -> o.getItem().getName());
+
         }
         return all;
     }
@@ -56,15 +53,11 @@ public class OrderApiController {
         return result;
     }
 
+    private final OrderQueryService orderQueryService;
+
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
-        List<Order> orders = orderRepository.findAllWithItem();
-
-        List<OrderDto> result = orders.stream()
-                .map(o -> new OrderDto(o))
-                .collect(toList());
-
-        return result;
+        return orderQueryService.ordersV3();
     }
 
     @GetMapping("/api/v3.1/orders")
@@ -102,38 +95,6 @@ public class OrderApiController {
                 .collect(toList());
     }
 
-    @Getter
-    static class OrderDto {
-        private final Long orderId;
-        private final String name;
-        private final LocalDateTime orderDate;
-        private final OrderStatus orderStatus;
-        private final Address address;
-        private final List<OrderItemDto> orderItems;
 
-        public OrderDto(Order order) {
-            orderId = order.getId();
-            name = order.getMember().getName();
-            orderDate = order.getOrderDate();
-            orderStatus = order.getStatus();
-            address = order.getDelivery().getAddress();
-            orderItems = order.getOrderItems().stream()
-                    .map(oi -> new OrderItemDto(oi))
-                    .collect(toList());
-        }
-    }
-
-    @Getter
-    static class OrderItemDto {
-        private final String itemName;
-        private final int orderPrice;
-        private final int count;
-
-        public OrderItemDto(OrderItem orderItem) {
-            itemName = orderItem.getItem().getName();
-            orderPrice = orderItem.getItem().getPrice();
-            count = orderItem.getCount();
-        }
-    }
 
 }
